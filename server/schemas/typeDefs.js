@@ -15,6 +15,12 @@ const typeDefs = gql`
     email: String!
     password: String!
   }
+  input UpdateUserInput {
+    firstName: String
+    lastName: String
+    userName: String
+    password: String
+  }
   type Query {
     Users: [User!]!
     getUser(id: ID!): User
@@ -23,6 +29,7 @@ const typeDefs = gql`
   }
   type Mutation {
     createUser(input: CreateUserInput!): User
+    updateUser(id: ID!, input: UpdateUserInput!): User
   }
 `;
 

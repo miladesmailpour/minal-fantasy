@@ -41,7 +41,16 @@ const resolvers = {
         const user = await User.create(input);
         return user;
       } catch (error) {
-        throw new Error("Failed to create user" + error);
+        throw new Error("Failed to create user");
+      }
+    },
+    updateUser: async (_, { id, input }) => {
+      try {
+        console.log(input);
+        const user = await User.findByIdAndUpdate(id, input, { new: true });
+        return user;
+      } catch (error) {
+        throw new Error("Failed to update user");
       }
     },
   },
