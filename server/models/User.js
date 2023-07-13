@@ -6,18 +6,16 @@ const UserSchema = new Schema({
   firstName: {
     type: String,
     required: true,
-    unique: true,
     trim: true
   },
   lastName: {
     type: String,
     required: true,
-    unique: false,
     trim: true
   },
   userName: {
     type: String,
-    required: true,
+    required: false,
     unique: true,
     trim: true
   },
@@ -34,7 +32,21 @@ const UserSchema = new Schema({
       },
       message: 'Invalid email format'
     }
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 8,
+    trim: true
   }
+});
+
+// Pre-save hook to fill the userName field from the email
+UserSchema.pre('save', function (next) {
+  if (!this.userName) {
+    this.userName = this.email.split('@')[0];
+  }
+  next();
 });
 
 // Apply unique validator plugin
