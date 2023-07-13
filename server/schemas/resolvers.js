@@ -3,11 +3,11 @@ const { User } = require("../models");
 const resolvers = {
   Query: {
     Users: async () => {
-      try{
+      try {
         const users = await User.find({});
-        return users
-      } catch (e){
-        throw new Error('Failed to fetch users');
+        return users;
+      } catch (e) {
+        throw new Error("Failed to fetch users");
       }
     },
     getUser: async (_, { id }) => {
@@ -19,7 +19,16 @@ const resolvers = {
       }
     },
   },
-  // Mutation: {  },
+  Mutation: {
+    createUser: async (_, input) => {
+      try {
+        const user = await User.create(input);
+        return users;
+      } catch (e) {
+        throw new Error("Failed to create user");
+      }
+    },
+  },
 };
 
 module.exports = resolvers;
