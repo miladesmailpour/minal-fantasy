@@ -1,8 +1,12 @@
-// const {  } = require('../models');
+const { User } = require('../models');
 
 const resolvers = {
-  Query: {  },
-  Mutation: {  },
+  Query: { 
+    Users: async ()=>{
+      return await User.find({})
+    }
+   },
+  // Mutation: {  },
 };
 
 module.exports = resolvers;
