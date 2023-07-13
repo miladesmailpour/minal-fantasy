@@ -1,0 +1,16 @@
+.welcome {
+  font-size: 4rem;
+  font-family: "Grenze Gotisch", cursive;
+  color: var(--peas-in-a-pod);
+}
+
+.homepage-main {
+  justify-content: center;
+  margin: 3rem;
+}
+
+.body-text {
+    color: var(--peas-in-a-pod);
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.3rem;
+}
