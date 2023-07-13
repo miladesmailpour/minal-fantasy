@@ -41,6 +41,6 @@ const UserSchema = new Schema({
 UserSchema.plugin(uniqueValidator);
 
 // User model
-const UserModel = model('User', UserSchema);
+const User = model('User', UserSchema);
 
-module.exports = UserModel;
+module.exports = User;
