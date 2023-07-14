@@ -1,5 +1,7 @@
 const { Schema, model } = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
+const bcrypt = require('bcrypt');
+
 
 // User Schema
 const UserSchema = new Schema({
@@ -41,16 +43,27 @@ const UserSchema = new Schema({
   }
 });
 
-// Pre-save hook to fill the userName field from the email
-UserSchema.pre('save', function (next) {
+
+UserSchema.pre('save', async function (next) {
+  // Pre-save hook to fill the userName field from the email
   if (!this.userName) {
     this.userName = this.email.split('@')[0];
+  }
+  // set up pre-save middleware to create password
+  if (this.isNew || this.isModified('password')) {
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
   }
   next();
 });
 
 // Apply unique validator plugin
 UserSchema.plugin(uniqueValidator);
+
+// compare the incoming password with the hashed password
+userSchema.methods.isCorrectPassword = async function (password) {
+  return bcrypt.compare(password, this.password);
+};
 
 // User model
 const User = model('User', UserSchema);
