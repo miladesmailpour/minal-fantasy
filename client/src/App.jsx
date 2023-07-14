@@ -5,6 +5,10 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Layout from './Layout';
 import Play from './pages/Play';
+import Leaderboard from './pages/Leaderboard';
+import Store from './pages/Store';
+import About from './pages/About';
+import ContactForm from './pages/Contact';
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -22,7 +26,11 @@ function App() {
               path="/" 
               element={<Home />}
             />
-            <Route path="play" element={<Play />} />
+            <Route path="/play" element={<Play />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/store" element={<Store />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<ContactForm />} />
             <Route 
               path="*"
               element={<NotFound />}
