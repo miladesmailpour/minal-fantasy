@@ -5,7 +5,7 @@ import "./footer.css";
 function Footer() {
     return (
       <footer>
-        This is a placeholder
+        <p>Made by <a href="https://github.com/miladesmailpour">Mahdi</a>, <a href="https://github.com/Sunderfire">Griffin</a>, and <a href="https://github.com/jrtvick">Tyler</a></p>
       </footer>
     );
   }
