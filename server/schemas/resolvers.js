@@ -10,7 +10,7 @@ const resolvers = {
         throw new Error("Failed to fetch users");
       }
     },
-    getUser: async (_, { id }) => {
+    getUser: async (parent, { id }) => {
       try {
         const user = await User.findById(id);
         return user;
@@ -18,17 +18,15 @@ const resolvers = {
         throw new Error("Failed to fetch user");
       }
     },
-    getUserByEmail: async (_, { email }) => {
+    getByEmailUserName: async (parent, { userNameOrEmail }) => {
+      let user;
       try {
-        const user = await User.findOne({ email });
-        return user;
-      } catch (error) {
-        throw new Error("Failed to fetch user");
-      }
-    },
-    getUserByUserName: async (_, { userName }) => {
-      try {
-        const user = await User.findOne({ userName });
+        if (userNameOrEmail.includes("@")) {
+          user = await User.findOne({ email: userNameOrEmail });
+        } else {
+          user = await User.findOne({ userName: userNameOrEmail });
+        }
+
         return user;
       } catch (error) {
         throw new Error("Failed to fetch user");

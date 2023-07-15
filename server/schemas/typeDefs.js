@@ -11,15 +11,14 @@ const typeDefs = gql`
   }
   input CreateUserInput {
     firstName: String!
-    lastName: String!
+    lastName: String
     email: String!
     password: String!
   }
   type Query {
     Users: [User!]!
     getUser(id: ID!): User
-    getUserByEmail(email: String!): User
-    getUserByUserName(userName: String!): User
+    getByEmailUserName(userNameOrEmail: String!): User
   }
   type Mutation {
     createUser(input: CreateUserInput!): User
