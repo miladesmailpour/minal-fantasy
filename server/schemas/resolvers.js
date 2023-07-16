@@ -7,47 +7,54 @@ const resolvers = {
   Query: {
     users: async () => {
       try {
-        const users = await User.find({});
+        const users = await User.find({}).populate("gameId");
         return users;
       } catch (error) {
-        throw new Error("Failed to fetch users");
+        throw new Error("Failed to fetch users: " + error.message);
       }
     },
     getUser: async (parent, { _id }) => {
       try {
-        const user = await User.findById(_id);
+        const user = await User.findById(_id).populate("gameId");
         return user;
       } catch (error) {
-        throw new Error("Failed to fetch user");
+        throw new Error("Failed to fetch user: " + error.message);
       }
     },
     getByEmailUserName: async (parent, { userNameOrEmail }) => {
       try {
         let user;
         if (userNameOrEmail.includes("@")) {
-          user = await User.findOne({ email: userNameOrEmail });
+          user = await User.findOne({ email: userNameOrEmail }).populate(
+            "gameId"
+          );
         } else {
-          user = await User.findOne({ userName: userNameOrEmail });
+          user = await User.findOne({ userName: userNameOrEmail }).populate(
+            "gameId"
+          );
         }
 
         return user;
       } catch (error) {
-        throw new Error("Failed to fetch user");
+        throw new Error("Failed to fetch user: " + error.message);
       }
+    },
+    games: async (parent, { email }) => {
+      const params = email ? { email } : {};
+      return Game.find(params).sort({ createdAt: -1 });
     },
   },
   Mutation: {
     createUser: async (parent, { input }) => {
       try {
         const { firstName, lastName, email, password } = input;
-        const { _id } = await Game.create({ name: "minal-fantasy" });
-        console.log(_id);
+        const game = await Game.create({ name: "minal-fantasy", level: 0 });
         const user = await User.create({
           firstName: firstName,
           lastName: lastName,
           email: email,
           password: password,
-          gameId: _id,
+          gameId: game._id,
         });
         const token = signToken(user);
         return { token, user };
