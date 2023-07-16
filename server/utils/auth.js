@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken");
 
-const secret = "Minal Fantasy $ecrect";
+const secret = "Minal Fantasy Secret";
 const expiration = "1h";
 
 module.exports = {
-  signToken: function ({ email, username, _id }) {
-    const payload = { email, username, _id };
+  signToken: async ({ email, userName, _id }) => {
+    const payload = { email, userName, _id };
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
 };
