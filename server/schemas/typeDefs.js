@@ -28,6 +28,22 @@ const typeDefs = gql`
     name: String
     items: [Item]
   }
+  type Cell {
+    reward: Boolean!
+    threat: Boolean!
+    adjacentThreat: Int!
+    adjacentReward: Int!
+    revealed: Boolean!
+    flagged: Boolean!
+  }
+  input MatrixInput {
+    reward: Boolean!
+    threat: Boolean!
+    adjacentThreat: Int!
+    adjacentReward: Int!
+    revealed: Boolean!
+    flagged: Boolean!
+  }
   input CreateUserInput {
     firstName: String!
     lastName: String
@@ -50,12 +66,13 @@ const typeDefs = gql`
     getByEmailUserName(userNameOrEmail: String!): User
     games: [Game]
     shop: [Shop]
+    getMatrix(rows: Int, columns: Int, threats: Int, rewards: Int): [[Cell!]]!
+    printMatrix(matrix: [[MatrixInput]]): [[String!]]!
   }
   type Mutation {
     updateUser(id: ID!, input: UpdateUserInput!): User
     createUser(input: CreateUserInput!): Auth
     login(email: String!, password: String!): Auth
-
   }
 `;
 
