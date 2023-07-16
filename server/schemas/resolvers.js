@@ -106,7 +106,6 @@ const resolvers = {
         const user = await User.findByIdAndUpdate(id, input, { new: true });
         return user;
       } catch (error) {
-        throw new Error("Failed to update user");
         throw new Error("Failed to create user: " + error.message);
       }
     },
