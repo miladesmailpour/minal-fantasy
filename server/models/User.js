@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 const bcrypt = require("bcrypt");
+const dateFormat = require('../utils/dateFormat');
 
 // User Schema
 const UserSchema = new Schema({
@@ -39,6 +40,11 @@ const UserSchema = new Schema({
     required: true,
     minlength: 8,
     trim: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    get: (timestamp) => dateFormat(timestamp),
   },
 });
 
