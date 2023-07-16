@@ -33,3 +33,5 @@ const shopSchema = new Schema({
 });
 
 const Shop = model("Shop", shopSchema);
+
+module.exports = Shop;

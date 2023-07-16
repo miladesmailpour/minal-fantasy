@@ -45,6 +45,10 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Game",
   },
+  shop:{
+    type:Schema.Types.ObjectId,
+    ref:"Shop"
+  },
   createdAt: {
     type: Date,
     default: Date.now,

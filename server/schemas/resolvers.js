@@ -1,6 +1,7 @@
 const { AuthenticationError } = require("apollo-server-express");
 const User = require("../models/User");
 const Game = require("../models/Game");
+const Shop = require("../models/Shop");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -39,22 +40,42 @@ const resolvers = {
         throw new Error("Failed to fetch user: " + error.message);
       }
     },
-    games: async (parent, { email }) => {
-      const params = email ? { email } : {};
-      return Game.find(params).sort({ createdAt: -1 });
+    games: async (parent, { _id }) => {
+      try {
+        const game = await Game.findById(_id).sort({ createdAt: -1 });
+        return game;
+      } catch (error) {
+        throw new Error("Failed to fetch games: " + error.message);
+      }
+    },
+    shop: async (parent, { _id }) => {
+      try {
+        const shop = await Shop.findById(_id).sort({ createdAt: -1 });
+        return shop;
+      } catch (error) {
+        throw new Error("Failed to fetch shop: " + error.message);
+      }
     },
   },
   Mutation: {
     createUser: async (parent, { input }) => {
       try {
         const { firstName, lastName, email, password } = input;
-        const game = await Game.create({ name: "minal-fantasy", level: 0 });
+        const game = await Game.create({
+          name: "minal-fantasy-game",
+          level: 0,
+        });
+        const shop = await Shop.create({
+          name: "minal-fantasy-shop",
+          items: [],
+        });
         const user = await User.create({
           firstName: firstName,
           lastName: lastName,
           email: email,
           password: password,
           game: game._id,
+          shop: shop._id,
         });
         const token = signToken(user);
         return { token, user };

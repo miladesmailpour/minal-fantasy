@@ -9,13 +9,24 @@ const typeDefs = gql`
     email: String
     password: String
     game: Game
+    shop: Shop
     createdAt: String
   }
   type Game {
-    _id: ID
+    _id: ID!
     name: String
-    level: Int
-    createdAt: String
+    level: Int!
+    createdAt: String!
+  }
+  type Item {
+    name: String
+    category: String
+    level: Int!
+  }
+  type Shop {
+    _id: ID!
+    name: String
+    items: [Item]
   }
   input CreateUserInput {
     firstName: String!
@@ -32,6 +43,7 @@ const typeDefs = gql`
     getUser(_id: ID!): User
     getByEmailUserName(userNameOrEmail: String!): User
     games: [Game]
+    shop: [Shop]
   }
   type Mutation {
     createUser(input: CreateUserInput!): Auth
