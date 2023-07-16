@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 const bcrypt = require("bcrypt");
-const dateFormat = require('../utils/dateFormat');
+const dateFormat = require("../utils/dateFormat");
 
 // User Schema
 const UserSchema = new Schema({
@@ -32,7 +32,7 @@ const UserSchema = new Schema({
         // Email validation using a regular expression
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       },
-      message: "Invalid email format",
+      message: "Invalid email format example@info.com",
     },
   },
   password: {
@@ -40,6 +40,10 @@ const UserSchema = new Schema({
     required: true,
     minlength: 8,
     trim: true,
+  },
+  game: {
+    type: Schema.Types.ObjectId,
+    ref: "Game",
   },
   createdAt: {
     type: Date,
