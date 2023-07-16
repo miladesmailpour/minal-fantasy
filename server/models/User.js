@@ -41,7 +41,7 @@ const UserSchema = new Schema({
     minlength: 8,
     trim: true,
   },
-  gameId: {
+  game: {
     type: Schema.Types.ObjectId,
     ref: "Game",
   },

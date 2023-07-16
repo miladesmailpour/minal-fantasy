@@ -7,7 +7,7 @@ const resolvers = {
   Query: {
     users: async () => {
       try {
-        const users = await User.find({}).populate("gameId");
+        const users = await User.find({}).populate("game");
         return users;
       } catch (error) {
         throw new Error("Failed to fetch users: " + error.message);
@@ -15,7 +15,7 @@ const resolvers = {
     },
     getUser: async (parent, { _id }) => {
       try {
-        const user = await User.findById(_id).populate("gameId");
+        const user = await User.findById(_id).populate("game");
         return user;
       } catch (error) {
         throw new Error("Failed to fetch user: " + error.message);
@@ -26,11 +26,11 @@ const resolvers = {
         let user;
         if (userNameOrEmail.includes("@")) {
           user = await User.findOne({ email: userNameOrEmail }).populate(
-            "gameId"
+            "game"
           );
         } else {
           user = await User.findOne({ userName: userNameOrEmail }).populate(
-            "gameId"
+            "game"
           );
         }
 
@@ -54,7 +54,7 @@ const resolvers = {
           lastName: lastName,
           email: email,
           password: password,
-          gameId: game._id,
+          game: game._id,
         });
         const token = signToken(user);
         return { token, user };
@@ -64,7 +64,7 @@ const resolvers = {
     },
     login: async (parent, { email, password }) => {
       try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email }).populate("game");
         if (!user) {
           throw new AuthenticationError(
             `No user found with this email ${email}`
