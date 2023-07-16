@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Game = require("../models/Game");
 const Shop = require("../models/Shop");
 const { signToken } = require("../utils/auth");
+const { matrixCreator, matrixPrinter } = require("../utils/matrixCreator");
 
 const resolvers = {
   Query: {
@@ -56,6 +57,22 @@ const resolvers = {
         throw new Error("Failed to fetch shop: " + error.message);
       }
     },
+    getMatrix: (parent, { rows, columns, threats, rewards }) => {
+      try {
+        const matrix = matrixCreator(rows, columns, threats, rewards);
+        // console.log(matrixPrinter(matrix));
+        return matrix;
+      } catch (error) {
+        throw new Error("unable to create the matrix!");
+      }
+    },
+    printMatrix: (parent, { matrix }) => {
+      try {
+        return matrixPrinter(matrix);
+      } catch (error) {
+        throw new Error("it is Not a valid matrix");
+      }
+    },
   },
   Mutation: {
     createUser: async (parent, { input }) => {
@@ -89,7 +106,6 @@ const resolvers = {
         const user = await User.findByIdAndUpdate(id, input, { new: true });
         return user;
       } catch (error) {
-        throw new Error("Failed to update user");
         throw new Error("Failed to create user: " + error.message);
       }
     },
