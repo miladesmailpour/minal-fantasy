@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
-import { useQuery } from "@apollo/client";
 import "../components/home.css";
+<<<<<<< HEAD
 import Modal from "../components/modal";
 // import { QUERY_MATCHUPS } from '../utils/queries';
+=======
+import { useQuery } from "@apollo/client";
+import { QUERY_USERS } from '../utils/queries';
+>>>>>>> dev-milad
 
 const Home = () => {
-  // const { loading, data } = useQuery(QUERY_MATCHUPS, {
-  //   fetchPolicy: "no-cache"
-  // });
+  const { loading, data } = useQuery(QUERY_USERS);
+  if(!loading){
+    console.log(data)
+  }
 
   // const matchupList = data?.matchups || [];
 
