@@ -8,6 +8,7 @@ const typeDefs = gql`
     userName: String
     email: String
     password: String
+    gameId: ID
   }
   input CreateUserInput {
     firstName: String!

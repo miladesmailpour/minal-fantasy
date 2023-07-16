@@ -1,5 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
 const User = require("../models/User");
+const Game = require("../models/Game");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -37,13 +38,16 @@ const resolvers = {
   },
   Mutation: {
     createUser: async (parent, { input }) => {
-      const { firstName, lastName, email, password } = input;
       try {
+        const { firstName, lastName, email, password } = input;
+        const { _id } = await Game.create({ name: "minal-fantasy" });
+        console.log(_id);
         const user = await User.create({
           firstName: firstName,
           lastName: lastName,
           email: email,
           password: password,
+          gameId: _id,
         });
         const token = signToken(user);
         return { token, user };

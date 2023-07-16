@@ -6,11 +6,12 @@ const gameSchema = new Schema({
     type: String,
     required: true,
     minlength: 1,
-    maxlength: 280,
+    maxlength: 150,
     trim: true,
   },
   level: {
     type: Number,
+    required: false,
     default: 0,
   },
   createdAt: {
