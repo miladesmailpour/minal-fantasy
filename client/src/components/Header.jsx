@@ -6,22 +6,15 @@ const isLoggedIn = false;
 
 function Header() {
     const [isOpen, setIsOpen] = useState(false);
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [rememberMe, setRememberMe] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [isSignUp, setIsSignUp] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false); // Add rememberMe state
   
     const toggleModal = () => {
       setIsOpen(!isOpen);
-    };
-  
-    const handleFirstNameChange = (e) => {
-      setFirstName(e.target.value);
-    };
-  
-    const handleLastNameChange = (e) => {
-      setLastName(e.target.value);
     };
   
     const handleEmailChange = (e) => {
@@ -32,27 +25,42 @@ function Header() {
       setPassword(e.target.value);
     };
   
+    const handleFirstNameChange = (e) => {
+      setFirstName(e.target.value);
+    };
+  
+    const handleLastNameChange = (e) => {
+      setLastName(e.target.value);
+    };
+  
     const handleRememberMeChange = (e) => {
       setRememberMe(e.target.checked);
-    };
+    }; // Add handleRememberMeChange function
   
     const handleSubmit = (e) => {
       e.preventDefault();
       // Handle form submission logic here
-      console.log("First Name:", firstName);
-      console.log("Last Name:", lastName);
-      console.log("Email:", email);
-      console.log("Password:", password);
-      console.log("Remember me:", rememberMe);
+      if (isSignUp) {
+        console.log('Sign up - Email:', email);
+        console.log('Sign up - Password:', password);
+        console.log('Sign up - First Name:', firstName);
+        console.log('Sign up - Last Name:', lastName);
+      } else {
+        console.log('Log in - Email:', email);
+        console.log('Log in - Password:', password);
+      }
       // Reset form fields
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
-      setRememberMe(false);
+      setEmail('');
+      setPassword('');
+      setFirstName('');
+      setLastName('');
       // Close the modal
       toggleModal();
     };
+
+    const switchToLogIn = () => {
+        setIsSignUp(false);
+      };
 
 
   return (
@@ -133,9 +141,14 @@ function Header() {
                 Log In
               </button> */}
               
-              <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={toggleModal}>
-        Log in
-      </button>
+              <button
+                
+                className="minecraft-btn mx-auto w-64 text-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200"
+                
+                onClick={toggleModal}
+              >
+                Log In
+              </button>
 
             </div>
           )}
@@ -155,36 +168,44 @@ function Header() {
                  </svg>
                </button>
                <div className="modal-content">
-                 <h2 className="modal-title">Log in</h2>
-                 <form onSubmit={handleSubmit}>
-                   <div className="modal-form-group">
-                     <label htmlFor="firstName" className="modal-label">
-                       First Name
-                     </label>
-                     <input
-                       type="text"
-                       id="firstName"
-                       className="modal-input"
-                       placeholder="Enter your first name"
-                       value={firstName}
-                       onChange={handleFirstNameChange}
-                       required
-                     />
-                   </div>
-                   <div className="modal-form-group">
-                     <label htmlFor="lastName" className="modal-label">
-                       Last Name
-                     </label>
-                     <input
-                       type="text"
-                       id="lastName"
-                       className="modal-input"
-                       placeholder="Enter your last name"
-                       value={lastName}
-                       onChange={handleLastNameChange}
-                       required
-                     />
-                   </div>
+                 {isSignUp ? (
+                   <h2 className="modal-title">Sign up</h2>
+                 ) : (
+                   <h2 className="modal-title">Log in</h2>
+                 )}
+                 <form onSubmit={handleSubmit} className="signup-form">
+                   {isSignUp && (
+                     <div className="modal-form-group">
+                       <label htmlFor="firstName" className="modal-label">
+                         First Name
+                       </label>
+                       <input
+                         type="text"
+                         id="firstName"
+                         className="modal-input"
+                         placeholder="Enter your first name"
+                         value={firstName}
+                         onChange={handleFirstNameChange}
+                         required
+                       />
+                     </div>
+                   )}
+                   {isSignUp && (
+                     <div className="modal-form-group">
+                       <label htmlFor="lastName" className="modal-label">
+                         Last Name
+                       </label>
+                       <input
+                         type="text"
+                         id="lastName"
+                         className="modal-input"
+                         placeholder="Enter your last name"
+                         value={lastName}
+                         onChange={handleLastNameChange}
+                         required
+                       />
+                     </div>
+                   )}
                    <div className="modal-form-group">
                      <label htmlFor="email" className="modal-label">
                        Email
@@ -213,30 +234,33 @@ function Header() {
                        required
                      />
                    </div>
-                   <div className="modal-form-group modal-checkbox">
-                     <input
-                       type="checkbox"
-                       id="rememberMe"
-                       className="modal-checkbox-input"
-                       checked={rememberMe}
-                       onChange={handleRememberMeChange}
-                     />
-                     <label htmlFor="rememberMe" className="modal-checkbox-label">
-                       Remember me
-                     </label>
-                   </div>
-                   <div className="modal-form-group modal-links">
-                     <a href="#" className="modal-link">
-                       Forgot password?
-                     </a>
-                     <span className="modal-link-separator">|</span>
-                     <a href="#" className="modal-link">
-                       Don't have an account? Sign up here
-                     </a>
-                   </div>
+                   
+                   {!isSignUp && (
+                     <div className="modal-form-group modal-links">
+                       <button type="button" className="modal-submit" onClick={() => console.log('Forgot password?')}>
+                         4got pw?
+                       </button>
+                       <span className="modal-link-separator">//</span>
+                       <button type="button" className="modal-submit" onClick={() => setIsSignUp(true)}>
+                         need account? sign up
+                       </button>
+                     </div>
+                   )}
+                   
+                   {isSignUp && (
+                     <div className="modal-form-group modal-links">
+                       <button type="button" className="modal-submit" onClick={switchToLogIn}>
+                         go back
+                       </button>
+                     </div>
+                     
+                   )}
+                   
                    <button type="submit" className="modal-submit">
-                     Log in
+                    
+                     {isSignUp ? "sign up" : "log in"}
                    </button>
+                   
                  </form>
                </div>
              </div>
