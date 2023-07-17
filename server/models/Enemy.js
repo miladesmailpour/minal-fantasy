@@ -1,27 +1,15 @@
 const { Schema, model } = require("mongoose");
 
-const classSchema = new Schema({
+const enemySchema = new Schema({
   name: {
     type: String,
-    required: true,
-  },
-  lvl: {
-    type: Number,
     required: true,
   },
   hp: {
     type: Number,
     required: true,
   },
-  mp: {
-    type: Number,
-    required: true,
-  },
   str: {
-    type: Number,
-    required: true,
-  },
-  int: {
     type: Number,
     required: true,
   },
@@ -37,19 +25,16 @@ const classSchema = new Schema({
     type: Number,
     required: true,
   },
+  xp: {
+    type: Number,
+    required: true,
+  },
   sprite: {
     type: String,
     required: true,
   },
 });
 
-classSchema.methods.modifyStat = function (effect) {
-  const { stat, value } = effect;
-  if (this[stat]) {
-    this[stat] += value;
-  }
-};
+const Enemy = model("Enemy", enemySchema);
 
-const Class = model("Class", classSchema);
-
-module.exports = Class;
+module.exports = Enemy;
