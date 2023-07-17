@@ -1,8 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Tile from '../components/Tile';
 import '../components/tile.css';
+import Printer from '../utils/printer'
+
+import { useQuery } from "@apollo/client";
+import { QUERY_GET_MATRIX } from '../utils/queries';
 
 const Play = () => {
+  const [matrix, setMatrix] = useState([]);
+  const { loading, data } = useQuery(QUERY_GET_MATRIX);
+
+  useEffect(() => {
+    if (!loading && data) {
+      setMatrix(data.getMatrix);
+      console.log(matrix);
+      const pm = Printer.matrixPrinter(matrix)
+      if(pm){
+        // console.log(pm)
+        pm.forEach((line)=>{
+          console.log(line)
+        })
+      }
+      
+    }
+  }, [loading, data, matrix]);
+
+
+
     const [gameStarted, setGameStarted] = useState(false);
     const [showModal, setShowModal] = useState(false);
   
@@ -60,6 +84,7 @@ const Play = () => {
         )} */}
   
         <div className="grid-container">{renderGrid()}</div>
+
       </div>
     );
   };

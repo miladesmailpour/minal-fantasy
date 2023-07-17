@@ -54,7 +54,7 @@ function Header() {
         const { data } = await login({
           variables: { email, password },
         });
-  console.log(data)
+        console.log(data)
         Auth.login(data.login.token);
       } catch (e) {
         console.error(e);
