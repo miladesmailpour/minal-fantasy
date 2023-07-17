@@ -26,7 +26,6 @@ const Play = () => {
   }, [loading, data, matrix]);
 
 
-
     const [gameStarted, setGameStarted] = useState(false);
     const [showModal, setShowModal] = useState(false);
   
@@ -57,7 +56,7 @@ const Play = () => {
   
     const renderGrid = () => {
       return tilesState.map((isRevealed, index) => (
-        <Tile key={index} value={null} isRevealed={isRevealed} onClick={() => handleTileClick(index)} />
+        <Tile key={index} value={'O'} isRevealed={isRevealed} onClick={() => handleTileClick(index)} />
       ));
     };
   
