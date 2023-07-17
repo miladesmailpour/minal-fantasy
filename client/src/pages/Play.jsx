@@ -43,11 +43,11 @@ const Play = () => {
           {/* START button */}
           <button className="minecraft-btn mx-auto w-64 text-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200" onClick={handleStartGame}>Start</button>
           {/* RULES button */}
-          <button className="minecraft-btn mx-auto w-64 text-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200" onClick={handleRulesClick}>Rules</button>
+          {/* <button className="minecraft-btn mx-auto w-64 text-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200" onClick={handleRulesClick}>Rules</button> */}
         </div>
   
         {/* The modal */}
-        {showModal && (
+        {/* {showModal && (
           <div className="modal">
             <div className="modal-content">
               <span className="close" onClick={handleRulesClick}>
@@ -57,7 +57,7 @@ const Play = () => {
               <p>Explanation of the rules of the game goes here.</p>
             </div>
           </div>
-        )}
+        )} */}
   
         <div className="grid-container">{renderGrid()}</div>
       </div>
