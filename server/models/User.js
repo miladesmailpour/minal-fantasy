@@ -46,11 +46,6 @@ const UserSchema = new Schema({
     ref: "Game",
   },
 
-  character: {
-    type: Schema.Types.ObjectId,
-    ref: "Character",
-  },
-
   shop: {
     type: Schema.Types.ObjectId,
     ref: "Shop",

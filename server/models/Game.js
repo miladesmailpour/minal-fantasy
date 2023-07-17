@@ -14,6 +14,10 @@ const gameSchema = new Schema({
     required: false,
     default: 0,
   },
+  character: {
+    type: Schema.Types.ObjectId,
+    ref: "Character",
+  },
   createdAt: {
     type: Date,
     default: Date.now,

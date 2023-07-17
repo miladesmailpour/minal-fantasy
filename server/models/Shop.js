@@ -8,28 +8,11 @@ const shopSchema = new Schema({
     maxlength: 150,
     trim: true,
   },
-  items: [
-    {
-      name: {
-        type: String,
-        required: true,
-        minlength: 1,
-        maxlength: 150,
-        trim: true,
-      },
-      category: {
-        type: String,
-        required: true,
-        minlength: 1,
-        maxlength: 150,
-        trim: true,
-      },
-      level: {
-        type: Number,
-        default: 1,
-      },
-    },
-  ],
+  item: {
+    type: Schema.Types.ObjectId,
+    ref: "Item",
+    required: true,
+  },
 });
 
 const Shop = model("Shop", shopSchema);
