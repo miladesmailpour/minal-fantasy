@@ -1,4 +1,4 @@
-const matrixCreator = (rows = 6, columns = 6, threats = 5, rewards = 3) => {
+const matrixCreator = (rows = 5, columns = 5, threats = 3, rewards = 3) => {
   // Create the matrix
   let matrix = [];
   // Generate empty matrix

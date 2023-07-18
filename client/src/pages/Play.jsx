@@ -13,15 +13,27 @@ const Play = () => {
   useEffect(() => {
     if (!loading && data) {
       setMatrix(data.getMatrix);
-      console.log(matrix);
-      const pm = Printer.matrixPrinter(matrix)
-      if(pm){
-        // console.log(pm)
-        pm.forEach((line)=>{
-          console.log(line)
+      // console.log(matrix);
+      // const pm = Printer.matrixPrinter(matrix)
+      // if(pm){
+      //   const tmp = []
+      //   pm.forEach((line)=>{
+      //     if(line){
+      //       tmp.push(...line)
+      //     }
+      //   })
+      //   setTilesState(tmp)
+      // }
+      if(matrix){
+        const tmp = []
+        matrix.forEach((line)=>{
+          if(line){
+            tmp.push(...line)
+          }
         })
+        setTilesState(tmp)
       }
-      
+      // setTilesState(matrix)
     }
   }, [loading, data, matrix]);
 
@@ -30,11 +42,13 @@ const Play = () => {
     const [showModal, setShowModal] = useState(false);
   
     // Create a new array to hold the state of individual tiles
-    const [tilesState, setTilesState] = useState(() => {
-      const initialTilesState = Array(25).fill(false);
-      return initialTilesState;
-    });
-  
+    // const [tilesState, setTilesState] = useState(() => {
+    //   const initialTilesState = Array(25).fill(false);
+    //   return initialTilesState;
+    // });
+    const [tilesState, setTilesState] = useState([]);
+
+
     // Handle the "Start" button click to start the game
     const handleStartGame = () => {
       setGameStarted(true);
@@ -55,11 +69,18 @@ const Play = () => {
     };
   
     const renderGrid = () => {
-      return tilesState.map((isRevealed, index) => (
-        <Tile key={index} value={'O'} isRevealed={isRevealed} onClick={() => handleTileClick(index)} />
+      return tilesState.map((isRevealed, index, tile) => (
+        <Tile key={index} value={tile[index]} isRevealed={isRevealed} onClick={() => handleTileClick(index)} />
       ));
     };
   
+    const renderGrids = () => {
+      const output = matrix.map((isRevealed, index) => (
+        <Tile key={index} value={'X'} isRevealed={isRevealed} onClick={() => handleTileClick(index)} />
+      ));
+      return output
+    };
+
     return (
       <div className="container">
         <div className="buttons-container">
