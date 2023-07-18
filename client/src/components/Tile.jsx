@@ -22,16 +22,18 @@ const Tile = ({ value, isRevealed, onClick }) => {
 
   const clicked = state.revealed;
   let cell = '';
-  const threatsGifPath = [<img src='../../assets/sprites/demon/Demon-Sprite64.gif' alt="Demon-Sprite.gif" />]
+  const threatsGifPath = [
+    <img src='../../assets/sprites/demon/Demon-Sprite64.gif' alt="Demon-Sprite.gif" />,
+    <img src='../../assets/sprites/undeadTree/Undead-Tree-Sprite64.gif' alt="Undead-Tree-Sprite64.gif" />
+  ]
   const rewardsGifPath = [
     <img src='../../assets/sprites/knight/Knight-Sprite64.gif' alt="Knight-Sprite64.gif" />,
-    <img src='../../assets/sprites/undeadTree/Undead-Tree-Sprite64.gif' alt="Undead-Tree-Sprite64.gif" />,
     <img src='../../assets/sprites/wizard/Wizard-Sprite64.gif' alt="Wizard-Sprite64.gif" />
   ]
   if (state.threat) {
-    cell = threatsGifPath[0];
+    cell = threatsGifPath[Math.floor(Math.random() * 2)];
   }
-  else if (state.reward) cell = rewardsGifPath[Math.floor(Math.random() * 3)];
+  else if (state.reward) cell = rewardsGifPath[Math.floor(Math.random() * 2)];
   else cell = state.adjacentThreat;
 
   return (
