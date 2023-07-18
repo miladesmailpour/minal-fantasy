@@ -2,6 +2,7 @@ header {
   background-color: var(--glossy-black);
   color: var(--kellie-belle);
   margin-bottom: 2rem;
+  width: 100vw;
 }
 
 @keyframes dropDownFromTop {
