@@ -46,10 +46,6 @@ const UserSchema = new Schema({
     ref: "Game",
   },
 
-  shop: {
-    type: Schema.Types.ObjectId,
-    ref: "Shop",
-  },
   createdAt: {
     type: Date,
     default: Date.now,

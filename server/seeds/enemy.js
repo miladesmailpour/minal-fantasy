@@ -6,7 +6,7 @@ const demonData = {
   mdef: 5,
   agi: 5,
   xp: 50,
-  sprite: "../assets/sprites/demon/Demon-Sprite64.gif",
+  sprite: "",
 };
 
 const undeadTreeData = {
@@ -17,7 +17,7 @@ const undeadTreeData = {
   mdef: 6,
   agi: 5,
   xp: 50,
-  sprite: "../assets/sprites/undeadTree/Undead-Tree-Sprite64.gif",
+  sprite: "",
 };
 
 const enemyData = [demonData, undeadTreeData];

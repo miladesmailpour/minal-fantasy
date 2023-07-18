@@ -4,6 +4,7 @@ const Game = require("../models/Game");
 const Shop = require("../models/Shop");
 const { signToken } = require("../utils/auth");
 const { matrixCreator, matrixPrinter } = require("../utils/matrixCreator");
+const { Enemy } = require("../models");
 
 const resolvers = {
   Query: {
@@ -47,6 +48,14 @@ const resolvers = {
         return game;
       } catch (error) {
         throw new Error("Failed to fetch games: " + error.message);
+      }
+    },
+    enemy: async (parent, { _id }) => {
+      try {
+        const enemy = await Enemy.findById(_id).sort({ createdAt: -1 });
+        return enemy;
+      } catch (error) {
+        throw new Error("Failed to fetch enemies: " + error.message);
       }
     },
     shop: async (parent, { _id }) => {

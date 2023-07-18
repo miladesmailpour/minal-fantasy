@@ -31,7 +31,6 @@ const enemySchema = new Schema({
   },
   sprite: {
     type: String,
-    required: true,
   },
 });
 
