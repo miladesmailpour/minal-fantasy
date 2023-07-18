@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Tile from '../components/Tile';
 import '../components/tile.css';
-
+import { useOutletContext } from "react-router";
 import { useQuery } from "@apollo/client";
 import { QUERY_GET_MATRIX } from '../utils/queries';
 
 const Play = () => {
   const [matrix, setMatrix] = useState([]);
   const { loading, data } = useQuery(QUERY_GET_MATRIX);
+  const [setModalContent, setIsModalOpen] = useOutletContext();
 
   useEffect(() => {
     if (!loading && data) {
@@ -80,21 +81,13 @@ const Play = () => {
           {/* START button */}
           <button className="minecraft-btn mx-auto w-64 text-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200" onClick={handleStartGame}>Start</button>
           {/* RULES button */}
-          {/* <button className="minecraft-btn mx-auto w-64 text-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200" onClick={handleRulesClick}>Rules</button> */}
+          <button className="minecraft-btn mx-auto w-64 text-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200" onClick={() => {
+            setIsModalOpen(true);
+            setModalContent('rules')
+          }}
+>Rules</button>
         </div>
   
-        {/* The modal */}
-        {/* {showModal && (
-          <div className="modal">
-            <div className="modal-content">
-              <span className="close" onClick={handleRulesClick}>
-                &times;
-              </span>
-              <h2>Rules</h2>
-              <p>Explanation of the rules of the game goes here.</p>
-            </div>
-          </div>
-        )} */}
   
         <div className="grid-container">{renderGrid()}</div>
 
