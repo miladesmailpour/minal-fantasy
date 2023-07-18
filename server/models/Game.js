@@ -18,6 +18,10 @@ const gameSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Character",
   },
+  shop: {
+    type: Schema.Types.ObjectId,
+    ref: "Shop",
+  },
   createdAt: {
     type: Date,
     default: Date.now,

@@ -8,7 +8,7 @@ const knightClassData = {
   def: 9,
   mdef: 5,
   agi: 6,
-  sprite: "../assets/sprites/knight/Knight-Sprite64.gif",
+  sprite: "",
 };
 
 const wizardClassData = {
@@ -21,7 +21,7 @@ const wizardClassData = {
   def: 7,
   mdef: 9,
   agi: 7,
-  sprite: "../assets/sprites/wizard/Wizard-Sprite64.gif",
+  sprite: "",
 };
 
 const classData = [knightClassData, wizardClassData];
