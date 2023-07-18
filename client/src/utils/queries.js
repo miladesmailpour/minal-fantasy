@@ -14,7 +14,7 @@ query Users {
 `;
 
 export const QUERY_USERNAMEorEMAIL = gql`
-query Query($userNameOrEmail: String!) {
+query User($userNameOrEmail: String!) {
     getByEmailUserName(userNameOrEmail: $userNameOrEmail) {
       _id
       firstName
@@ -24,4 +24,23 @@ query Query($userNameOrEmail: String!) {
       password
     }
   }
+`;
+
+export const QUERY_GET_MATRIX = gql`
+query Matrix {
+  getMatrix {
+    reward
+    threat
+    adjacentThreat
+    adjacentReward
+    revealed
+    flagged
+  }
+}
+`;
+
+export const QUERY_PRINT_MATRIX = gql`
+query Matrix($matrix: [[MatrixInput]]) {
+  printMatrix(matrix: $matrix)
+}
 `;

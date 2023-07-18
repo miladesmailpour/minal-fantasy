@@ -1,17 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Tile from '../components/Tile';
 import '../components/tile.css';
 
+import { useQuery } from "@apollo/client";
+import { QUERY_GET_MATRIX } from '../utils/queries';
+
 const Play = () => {
+  const [matrix, setMatrix] = useState([]);
+  const { loading, data } = useQuery(QUERY_GET_MATRIX);
+
+  useEffect(() => {
+    if (!loading && data) {
+      setMatrix(data.getMatrix);
+      if(matrix){
+        const serialized = []
+        matrix.forEach((line)=>{
+          if(line){
+            const tmp = line.map((cell)=>{
+              return {
+                reward: cell.reward,
+                threat: cell.threat,
+                adjacentThreat: cell.adjacentThreat,
+                adjacentReward: cell.adjacentReward,
+                revealed: cell.revealed,
+                flagged: cell.flagged,
+              } 
+            })
+            serialized.push(...tmp)
+          }
+        })
+        setTilesState(serialized)
+      }
+    }
+    handleStartGame();
+  }, [loading, data, matrix]);
+
+
     const [gameStarted, setGameStarted] = useState(false);
     const [showModal, setShowModal] = useState(false);
   
     // Create a new array to hold the state of individual tiles
-    const [tilesState, setTilesState] = useState(() => {
-      const initialTilesState = Array(25).fill(false);
-      return initialTilesState;
-    });
-  
+    // const [tilesState, setTilesState] = useState(() => {
+    //   const initialTilesState = Array(25).fill(false);
+    //   return initialTilesState;
+    // });
+    const [tilesState, setTilesState] = useState([]);
+
+
     // Handle the "Start" button click to start the game
     const handleStartGame = () => {
       setGameStarted(true);
@@ -24,19 +59,21 @@ const Play = () => {
   
     const handleTileClick = (index) => {
       if (gameStarted) {
-        // Create a copy of the tiles state to avoid mutating the state directly
-        const updatedTilesState = [...tilesState];
-        updatedTilesState[index] = true;
-        setTilesState(updatedTilesState);
+        // console.log(tilesState[index])
+        const tmp = [...tilesState];
+        tmp[index] = tmp[index].revealed = true;
+        setTilesState(tmp)
+        console.log(tilesState[index])
+        renderGrid()
       }
     };
   
     const renderGrid = () => {
-      return tilesState.map((isRevealed, index) => (
-        <Tile key={index} value={null} isRevealed={isRevealed} onClick={() => handleTileClick(index)} />
+      return tilesState.map((tile, index) => (
+        <Tile key={index} value={tile} onClick={() => handleTileClick(index)} />
       ));
     };
-  
+
     return (
       <div className="container">
         <div className="buttons-container">
@@ -60,6 +97,7 @@ const Play = () => {
         )} */}
   
         <div className="grid-container">{renderGrid()}</div>
+
       </div>
     );
   };
