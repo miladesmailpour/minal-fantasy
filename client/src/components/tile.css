@@ -1,19 +1,17 @@
-
-
 .buttons-container {
   display: flex;
   justify-content: center;
-  gap: 3rem
+  gap: 3rem;
 }
 
 .buttons-container button {
   color: var(--vivid-yellow);
   font-size: 1.2rem;
-  margin-top:2rem;
+  margin-top: 2rem;
 }
 
-.container{
-    width: 100%;
+.container {
+  width: 100%;
 }
 
 .grid-container {
@@ -46,42 +44,41 @@
   /* border: solid 2px var(--poppy-red); */
 }
 
-.tile:hover{
-    border:var(--glossy-black) solid 2px;
+.tile:hover {
+  border: var(--glossy-black) solid 2px;
 }
 
 .tile.revealed {
-    background-color: rgba(0, 0, 0, 0);
-    border:var(--glossy-black) dotted 2px;
-    
+  background-color: rgba(0, 0, 0, 0);
+  border: var(--glossy-black) dotted 2px;
 }
 
 .tile.hidden {
-    background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 @media screen and (max-width: 992px) {
-    .buttons-container{
-        margin-top: 8rem;
-        margin-right: 8rem;
-        align-items: center;
-        justify-content: center;
-    }
-    .grid-container{
-        margin-right: 9rem;
-        margin-top: 2rem;
-    }
+  .buttons-container {
+    margin-top: 8rem;
+    margin-right: 8rem;
+    align-items: center;
+    justify-content: center;
+  }
+  .grid-container {
+    margin-right: 9rem;
+    margin-top: 2rem;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .buttons-container{
-        margin-top: 10rem;
-        margin-right: 8rem;
-        align-items: center;
-        justify-content: center;
-    }
-    .grid-container{
-        margin-right: 8rem;
-        margin-bottom: 1rem;
-    }
+  .buttons-container {
+    margin-top: 10rem;
+    margin-right: 8rem;
+    align-items: center;
+    justify-content: center;
+  }
+  .grid-container {
+    margin-right: 8rem;
+    margin-bottom: 1rem;
+  }
 }
