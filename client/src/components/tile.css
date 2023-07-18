@@ -1,3 +1,5 @@
+
+
 .buttons-container {
   display: flex;
   justify-content: center;
@@ -10,6 +12,10 @@
   margin-top:2rem;
 }
 
+.container{
+    width: 100%;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(5, 100px);
@@ -17,6 +23,11 @@
   grid-gap: 5px;
   justify-content: center;
   margin-top: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: fit-content;
+  z-index: 10;
+  background-image: url("../../public/assets/maps/Base-Map.png");
 }
 
 .tile {
@@ -28,15 +39,25 @@
   font-size: 24px;
   background-color: #ccc;
   cursor: pointer;
+  z-index: 9;
+  color: var(--poppy-red);
+  font-family: "Press Start 2P", cursive;
+  font-size: 2rem;
   /* border: solid 2px var(--poppy-red); */
 }
 
+.tile:hover{
+    border:var(--glossy-black) solid 2px;
+}
+
 .tile.revealed {
-  background-color: var(--poppy-red);
+    background-color: rgba(0, 0, 0, 0);
+    border:var(--glossy-black) dotted 2px;
+    
 }
 
 .tile.hidden {
-  background-color: var(--vivid-yellow);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 @media screen and (max-width: 992px) {
