@@ -2,15 +2,23 @@ const { AuthenticationError } = require("apollo-server-express");
 const User = require("../models/User");
 const Game = require("../models/Game");
 const Shop = require("../models/Shop");
+// const Character = require("../models/Character");
+const Enemy = require("../models/Enemy");
 const { signToken } = require("../utils/auth");
 const { matrixCreator, matrixPrinter } = require("../utils/matrixCreator");
-const { Enemy } = require("../models");
 
 const resolvers = {
   Query: {
     users: async () => {
       try {
-        const users = await User.find({}).populate("game");
+        const users = await User.find({}).populate({
+          path: "game",
+          populate: [
+            { path: "shop" },
+            { path: "enemy" },
+            // { path: "character" }
+          ],
+        });
         return users;
       } catch (error) {
         throw new Error("Failed to fetch users: " + error.message);
@@ -18,7 +26,14 @@ const resolvers = {
     },
     getUser: async (parent, { _id }) => {
       try {
-        const user = await User.findById(_id).populate("game");
+        const user = await User.findById(_id).populate({
+          path: "game",
+          populate: [
+            { path: "shop" },
+            { path: "enemy" },
+            // { path: "character" }
+          ],
+        });
         return user;
       } catch (error) {
         throw new Error("Failed to fetch user: " + error.message);
@@ -28,13 +43,23 @@ const resolvers = {
       try {
         let user;
         if (userNameOrEmail.includes("@")) {
-          user = await User.findOne({ email: userNameOrEmail }).populate(
-            "game"
-          );
+          user = await User.findOne({ email: userNameOrEmail }).populate({
+            path: "game",
+            populate: [
+              { path: "shop" },
+              { path: "enemy" },
+              // { path: "character" }
+            ],
+          });
         } else {
-          user = await User.findOne({ userName: userNameOrEmail }).populate(
-            "game"
-          );
+          user = await User.findOne({ userName: userNameOrEmail }).populate({
+            path: "game",
+            populate: [
+              { path: "shop" },
+              { path: "enemy" },
+              // { path: "character" }
+            ],
+          });
         }
 
         return user;
@@ -44,18 +69,19 @@ const resolvers = {
     },
     games: async (parent, { _id }) => {
       try {
-        const game = await Game.findById(_id).sort({ createdAt: -1 });
+        const game = await Game.findById(_id)
+          .populate({
+            path: "game",
+            populate: [
+              { path: "shop" },
+              { path: "enemy" },
+              // { path: "character" }
+            ],
+          })
+          .sort({ createdAt: -1 });
         return game;
       } catch (error) {
         throw new Error("Failed to fetch games: " + error.message);
-      }
-    },
-    enemy: async (parent, { _id }) => {
-      try {
-        const enemy = await Enemy.findById(_id).sort({ createdAt: -1 });
-        return enemy;
-      } catch (error) {
-        throw new Error("Failed to fetch enemies: " + error.message);
       }
     },
     shop: async (parent, { _id }) => {
@@ -85,24 +111,45 @@ const resolvers = {
   },
   Mutation: {
     createUser: async (parent, { input }) => {
+      const shop = await Shop.create({
+        name: "minal-fantasy-shop", // Provide a valid name for the Shop
+      });
+      // const character = await Character.create({
+      //   name: "minal-fantasy-charachters", // Provide a valid name for the Character
+      // });
+      const enemy = await Enemy.create({
+        name: "minal-fantasy-enemies", // Provide a valid name for the Enemy
+      });
+      await shop.save();
+      // await character.save();
+      await enemy.save();
+      console.log(shop);
       try {
         const { firstName, lastName, email, password } = input;
+
         const game = await Game.create({
           name: "minal-fantasy-game",
           level: 0,
+          shop: shop._id, // Assign the Shop's _id to the "shop" field in the Game document
+          // character: character._id,
+          enemy: enemy._id,
         });
-        const shop = await Shop.create({
-          name: "minal-fantasy-shop",
-          items: [],
-        });
+
         const user = await User.create({
           firstName: firstName,
           lastName: lastName,
           email: email,
           password: password,
           game: game._id,
-          shop: shop._id,
         });
+        // .populate({
+        //   path: "game",
+        //   populate: [
+        //     { path: "shop" },
+        //     { path: "enemy" },
+        //     // { path: "character" }
+        //   ],
+        // });
         const token = signToken(user);
         return { token, user };
       } catch (error) {
@@ -120,7 +167,12 @@ const resolvers = {
     },
     login: async (parent, { email, password }) => {
       try {
-        const user = await User.findOne({ email }).populate("game");
+        const user = await User.findOne({ email }).populate({
+          path: "game",
+          populate: {
+            path: "shop",
+          },
+        });
         if (!user) {
           throw new AuthenticationError(
             `No user found with this email ${email}`
