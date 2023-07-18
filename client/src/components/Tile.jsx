@@ -11,10 +11,26 @@ const Tile = ({ value, isRevealed, onClick }) => {
     flagged: value.flagged,
   });
   const clicked = state.revealed;
-  console.log(clicked);
+  // console.log(clicked);
+  let cell = '';
+  if(state.threat) cell = 'T';
+  else if(state.reward) cell = 'R';
+  else cell = state.adjacentThreat;
+  // console.log(typeof state.threat)
+
   return (
     <div className={`tile ${clicked ? 'revealed' : 'hidden'}`} onClick={onClick}>
-      <p>{state.adjacentThreat}</p>
+      
+      {
+        clicked ?
+        (
+          <p>{cell}</p>
+        )
+        :
+        (
+          <p>{}</p>
+        )
+      }
     </div>
   );
 };
