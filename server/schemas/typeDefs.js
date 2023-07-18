@@ -9,14 +9,26 @@ const typeDefs = gql`
     email: String
     password: String
     game: Game
-    shop: Shop
     createdAt: String
   }
   type Game {
     _id: ID!
     name: String
     level: Int!
+    shop: Shop
+    enemy: Enemy
     createdAt: String!
+  }
+  type Enemy {
+    _id: ID!
+    name: String
+    hp: Int
+    str: Int
+    def: Int
+    mdef: Int
+    agi: Int
+    xp: Int
+    sprite: String
   }
   type Item {
     name: String
@@ -26,7 +38,6 @@ const typeDefs = gql`
   type Shop {
     _id: ID!
     name: String
-    items: [Item]
   }
   type Cell {
     reward: Boolean!
@@ -64,7 +75,7 @@ const typeDefs = gql`
     users: [User]
     getUser(_id: ID!): User
     getByEmailUserName(userNameOrEmail: String!): User
-    games: [Game]
+    games(_id: ID!): Game
     shop: [Shop]
     getMatrix(rows: Int, columns: Int, threats: Int, rewards: Int): [[Cell!]]!
     printMatrix(matrix: [[MatrixInput]]): [[String!]]!

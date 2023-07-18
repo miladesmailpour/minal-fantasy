@@ -14,9 +14,17 @@ const gameSchema = new Schema({
     required: false,
     default: 0,
   },
-  character: {
+  // character: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "Character",
+  // },
+  shop: {
     type: Schema.Types.ObjectId,
-    ref: "Character",
+    ref: "Shop",
+  },
+  enemy: {
+    type: Schema.Types.ObjectId,
+    ref: "Enemy",
   },
   createdAt: {
     type: Date,
