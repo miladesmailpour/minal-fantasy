@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Tile from '../components/Tile';
 import '../components/tile.css';
-import Printer from '../utils/printer'
 
 import { useQuery } from "@apollo/client";
 import { QUERY_GET_MATRIX } from '../utils/queries';
@@ -13,28 +12,27 @@ const Play = () => {
   useEffect(() => {
     if (!loading && data) {
       setMatrix(data.getMatrix);
-      // console.log(matrix);
-      // const pm = Printer.matrixPrinter(matrix)
-      // if(pm){
-      //   const tmp = []
-      //   pm.forEach((line)=>{
-      //     if(line){
-      //       tmp.push(...line)
-      //     }
-      //   })
-      //   setTilesState(tmp)
-      // }
       if(matrix){
-        const tmp = []
+        const serialized = []
         matrix.forEach((line)=>{
           if(line){
-            tmp.push(...line)
+            const tmp = line.map((cell)=>{
+              return {
+                reward: cell.reward,
+                threat: cell.threat,
+                adjacentThreat: cell.adjacentThreat,
+                adjacentReward: cell.adjacentReward,
+                revealed: cell.revealed,
+                flagged: cell.flagged,
+              } 
+            })
+            serialized.push(...tmp)
           }
         })
-        setTilesState(tmp)
+        setTilesState(serialized)
       }
-      // setTilesState(matrix)
     }
+    handleStartGame();
   }, [loading, data, matrix]);
 
 
@@ -61,25 +59,27 @@ const Play = () => {
   
     const handleTileClick = (index) => {
       if (gameStarted) {
-        // Create a copy of the tiles state to avoid mutating the state directly
-        const updatedTilesState = [...tilesState];
-        updatedTilesState[index] = true;
-        setTilesState(updatedTilesState);
+        console.log(index)
       }
     };
   
     const renderGrid = () => {
-      return tilesState.map((isRevealed, index, tile) => (
-        <Tile key={index} value={tile[index]} isRevealed={isRevealed} onClick={() => handleTileClick(index)} />
+      return tilesState.map((tile, index) => (
+        <Tile key={index} value={tile} onClick={() => handleTileClick(index)} />
       ));
     };
+    // const renderGrid = () => {
+    //   return tilesState.map((isRevealed, index, tile) => (
+    //     <Tile key={index} value={tile[index]} isRevealed={isRevealed} onClick={() => handleTileClick(index)} />
+    //   ));
+    // };
   
-    const renderGrids = () => {
-      const output = matrix.map((isRevealed, index) => (
-        <Tile key={index} value={'X'} isRevealed={isRevealed} onClick={() => handleTileClick(index)} />
-      ));
-      return output
-    };
+    // const renderGrids = () => {
+    //   const output = matrix.map((isRevealed, index) => (
+    //     <Tile key={index} value={'X'} isRevealed={isRevealed} onClick={() => handleTileClick(index)} />
+    //   ));
+    //   return output
+    // };
 
     return (
       <div className="container">
