@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "../components/home.css";
-import Modal from "../components/modal";
 
 import { useQuery } from "@apollo/client";
 import { QUERY_USERS } from '../utils/queries';

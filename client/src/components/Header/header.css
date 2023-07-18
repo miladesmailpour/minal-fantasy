@@ -1,0 +1,127 @@
+header {
+  background-color: var(--glossy-black);
+  color: var(--kellie-belle);
+  margin-bottom: 2rem;
+}
+
+@keyframes dropDownFromTop {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.app-name {
+  max-width: fit-content;
+  font-size: 5.2rem;
+  font-family: "Grenze", serif;
+  margin-right: 20px;
+  margin-top: 30px;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-name: dropDownFromTop;
+}
+
+.app-name:hover {
+  text-decoration: underline;
+  cursor: none;
+}
+
+header div {
+  max-width: var(--max-width);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  height: 6rem;
+  padding: 0 20px;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+  margin-left: 60px;
+}
+
+nav ul {
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.74rem;
+  display: flex;
+  list-style: none;
+  gap: 1.4rem;
+  align-items: center;
+  margin-top: 80px;
+  margin-left: 2rem;
+  
+}
+
+nav a {
+  color: var(--kellie-belle);
+  text-decoration: none;
+  cursor: grab !important;
+}
+
+nav li {
+  transition: 0.4s ease-in-out;
+}
+
+nav li:hover {
+  color: var(--kellie-belle);
+  text-shadow: 0 0 7px var(--kellie-belle), 0 0 10px var(--kellie-belle),
+    0 0 21px var(--kellie-belle), 0 0 42px var(--kellie-belle),
+    0 0 82px var(--kellie-belle), 0 0 92px var(--kellie-belle),
+    0 0 102px var(--kellie-belle), 0 0 151px var(--kellie-belle);
+}
+
+nav a.active {
+  color: var(--kellie-belle);
+  text-shadow: 0 0 7px var(--kellie-belle), 0 0 10px var(--kellie-belle),
+    0 0 21px var(--kellie-belle), 0 0 42px var(--poppy-red),
+    0 0 82px var(--poppy-red), 0 0 92px var(--poppy-red),
+    0 0 102px var(--poppy-red), 0 0 151px var(--poppy-red);
+  transition: 0.4s ease-in-out;
+}
+
+.deactive {
+  padding: 0px;
+}
+
+@media screen and (max-width: 992px) {
+  nav {
+    justify-content: center;
+    align-items: center;
+    flex-wrap:wrap;
+    display:flex;
+    flex-direction: column;
+  }
+  .app-name{
+    margin-top: 10rem;
+    margin-bottom: -5.5rem;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  nav {
+    justify-content: center;
+    align-items: center;
+    flex-wrap:wrap;
+    display:inline-block;
+    flex-direction: column;
+  }
+
+  .app-name{
+    margin-top: 9rem;
+    margin-bottom: -4.5rem;
+  }
+  .minecraft-btn {
+    margin-top: -2rem;
+    
+  
+  }
+}
+
