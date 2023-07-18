@@ -59,7 +59,12 @@ const Play = () => {
   
     const handleTileClick = (index) => {
       if (gameStarted) {
-        console.log(index)
+        // console.log(tilesState[index])
+        const tmp = [...tilesState];
+        tmp[index] = tmp[index].revealed = true;
+        setTilesState(tmp)
+        console.log(tilesState[index])
+        renderGrid()
       }
     };
   
@@ -68,18 +73,6 @@ const Play = () => {
         <Tile key={index} value={tile} onClick={() => handleTileClick(index)} />
       ));
     };
-    // const renderGrid = () => {
-    //   return tilesState.map((isRevealed, index, tile) => (
-    //     <Tile key={index} value={tile[index]} isRevealed={isRevealed} onClick={() => handleTileClick(index)} />
-    //   ));
-    // };
-  
-    // const renderGrids = () => {
-    //   const output = matrix.map((isRevealed, index) => (
-    //     <Tile key={index} value={'X'} isRevealed={isRevealed} onClick={() => handleTileClick(index)} />
-    //   ));
-    //   return output
-    // };
 
     return (
       <div className="container">

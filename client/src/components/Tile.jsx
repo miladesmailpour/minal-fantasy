@@ -10,27 +10,25 @@ const Tile = ({ value, isRevealed, onClick }) => {
     revealed: value.revealed,
     flagged: value.flagged,
   });
+
+  const handleClick = () => {
+    if (!state.revealed) {
+      setState((prevState) => ({
+        ...prevState,
+        revealed: true,
+      }));
+    }
+  };
+
   const clicked = state.revealed;
-  // console.log(clicked);
   let cell = '';
-  if(state.threat) cell = 'T';
-  else if(state.reward) cell = 'R';
+  if (state.threat) cell = 'T';
+  else if (state.reward) cell = 'R';
   else cell = state.adjacentThreat;
-  // console.log(typeof state.threat)
 
   return (
-    <div className={`tile ${clicked ? 'revealed' : 'hidden'}`} onClick={onClick}>
-      
-      {
-        clicked ?
-        (
-          <p>{cell}</p>
-        )
-        :
-        (
-          <p>{}</p>
-        )
-      }
+    <div className={`tile ${clicked ? 'revealed' : 'hidden'}`} onClick={handleClick}>
+      {clicked ? <p>{cell}</p> : null}
     </div>
   );
 };
