@@ -25,6 +25,6 @@ const CharacterSchema = new Schema({
   },
 });
 
-const Character = model("Character", PcSchema);
+const Character = model("Character", CharacterSchema);
 
 module.exports = Character;
