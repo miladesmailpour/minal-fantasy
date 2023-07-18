@@ -14,13 +14,17 @@ const gameSchema = new Schema({
     required: false,
     default: 0,
   },
-  character: {
-    type: Schema.Types.ObjectId,
-    ref: "Character",
-  },
+  // character: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "Character",
+  // },
   shop: {
     type: Schema.Types.ObjectId,
     ref: "Shop",
+  },
+  enemy: {
+    type: Schema.Types.ObjectId,
+    ref: "Enemy",
   },
   createdAt: {
     type: Date,
