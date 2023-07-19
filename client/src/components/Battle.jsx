@@ -17,8 +17,7 @@ const calculateAttackDamage = (playerAttacker, playerDefender, enemyAttacker, en
         const playerDamageToApply = Math.max(1, playerDamage); 
         enemyDefender.hp -= playerDamageToApply;
         const enemyDefeated = enemyDefender.hp <= 0;
-
-    
+        
         const playerDefeated = playerDefender.hp <= 0;
 
         if (playerDefeated) {

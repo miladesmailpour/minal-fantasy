@@ -9,6 +9,7 @@ const Play = () => {
   const [matrix, setMatrix] = useState([]);
   const { loading, data } = useQuery(QUERY_GET_MATRIX);
   const [setModalContent, setIsModalOpen] = useOutletContext();
+  
 
   useEffect(() => {
     if (!loading && data) {

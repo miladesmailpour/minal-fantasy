@@ -2,37 +2,35 @@ const mongoose = require("mongoose");
 const Class = require("../models/Class");
 const Enemy = require("../models/Enemy");
 const Item = require("../models/Item");
+const db = require("../config/connection");
 
-mongoose
+/*mongoose
   .connect("mongodb://localhost:27017/minal-fantasy-db", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(async () => {
-    console.log("Connected to the database.");
+    console.log("Connected to the database.");*/
+db.once("open", async () => {
+  try {
+    // Seed Classes
+    const classData = require("./class");
+    await seedClasses(classData);
 
-    try {
-      // Seed Classes
-      const classData = require("./class");
-      await seedClasses(classData);
+    // Seed Enemies
+    const enemyData = require("./enemy");
+    await seedEnemies(enemyData);
 
-      // Seed Enemies
-      const enemyData = require("./enemy");
-      await seedEnemies(enemyData);
+    // Seed Items
+    const itemData = require("./item");
+    await seedItems(itemData);
 
-      // Seed Items
-      const itemData = require("./item");
-      await seedItems(itemData);
-
-      mongoose.connection.close();
-    } catch (error) {
-      console.error("Error seeding data:", error);
-      mongoose.connection.close();
-    }
-  })
-  .catch((error) => {
-    console.error("Error connecting to the database:", error);
-  });
+    mongoose.connection.close();
+  } catch (error) {
+    console.error("Error seeding data:", error);
+    mongoose.connection.close();
+  }
+});
 
 async function seedClasses(classData) {
   for (const classItem of classData) {
