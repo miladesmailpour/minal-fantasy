@@ -38,7 +38,6 @@ const enemySchema = new Schema({
   },
   sprite: {
     type: String,
-    required: true,
     default: "default-enemy-sprite.png",
   },
 });
