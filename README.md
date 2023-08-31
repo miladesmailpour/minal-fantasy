@@ -58,11 +58,11 @@ This is an open-source project Licensed by MIT which allows you to contribute an
 More info: https://g.co/kgs/QWcHhF
 
 - Branches are named as modules [n] and each is a unique challenge.
-- Master Branch contains the last solved challenge. (the read me you are reading through, is a default guide when NO challenge is available to help you do a pre-setup.)
+- Master Branch contains the last solved challenge. (The read me you are reading through, is a default guide when NO challenge is available to help you do a pre-setup.)
 
 # How to use the module and deploy
 
-- Clone the repo and make it own
+- Clone the repo and make it your own
 
   # Https URL :
 
@@ -88,7 +88,7 @@ More info: https://g.co/kgs/QWcHhF
 
         git status
 
-        "if local NOT updated"
+        "If local NOT updated"
         git add .
         git commit -m "[your comment]"
         git push origin master/main
@@ -104,7 +104,7 @@ More info: https://g.co/kgs/QWcHhF
          git add .
          git commit -m "[your comment]"
          git push origin [your module name]
-- Moving Modules to Master Branch and deploying:
+- Moving Modules to the Main Branch and deploying:
   # Creating a pull request to update the master/main :
        https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request
   # Deploy through the GitHub :
