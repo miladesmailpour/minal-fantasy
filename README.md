@@ -21,7 +21,7 @@
 
 ## How To Use
 
-When you visit our site, you can login in the top right hand corner. If you do not have an account you can make a new one in this area. After you are logged in, you will be able to play the game by clicking the play button and then the start button on the game page.
+When you visit our site, you can log in in the top right-hand corner. If you do not have an account you can make a new one in this area. After you are logged in, you will be able to play the game by clicking the play button and then the start button on the game page.
 
 Deployed URL: https://minal-fantasy-547c1b57de9f.herokuapp.com/
 
@@ -54,7 +54,7 @@ MIT LICENSE
 ## How to Contribute
 
 Challenges repository
-This is an open-source project Licensed by MIT which allows you to contribute and used open source codes used in this repo (All Branches).
+This is an open-source project Licensed by MIT which allows you to contribute and use open-source codes used in this repo (All Branches).
 More info: https://g.co/kgs/QWcHhF
 
 - Branches are named as modules [n] and each is a unique challenge.
