@@ -2,9 +2,9 @@
 
 ## Description
 
-- We decided to make a new twitst on some old classic games.
+- We decided to make a new twist on some old classic games.
 
-- Minesweeper except when you click the mine, its actually a monster and play an entire rpg around this concept.
+- Minesweeper except when you click the mine, it's actually a monster, and play an entire RPG around this concept.
 
 - a full stack application (Express, React, Grapghql, etc.)
 
